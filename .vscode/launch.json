@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": []
+            "args": ["https://d2y36twrtb17ty.cloudfront.net/sessions/a4312154-d2cc-42b2-92c3-ad870127ad8c/04c5c782-8626-4f41-8a9c-ada60112aa42.object.hls/343056/index.m3u8"]
         }
     ]
 }

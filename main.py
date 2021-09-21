@@ -1,7 +1,7 @@
 """
 This program takes in the a url to an index.m3u8 file
     and it will return a modified version of that file
-    hat vlc media player can use
+    that vlc media player can use
 """
 
 

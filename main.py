@@ -18,7 +18,7 @@ def outputBuffer(buffer, outputFile):
 if __name__ == "__main__":
     if len(sys.argv) == 2:
         url = sys.argv[1]
-        fileToModify = requests.get(url).text
+        fileToModify = requests.get(url).text #Save the Index.m3u8 into memory
         urlSliceEnd = url.find("index.m3u8")
         modifiedURL = url[0:(urlSliceEnd -1)]
         outputFileLocation = "./Output.m3u8"

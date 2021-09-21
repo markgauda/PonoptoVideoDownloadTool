@@ -6,28 +6,35 @@ This program takes in the a url to an index.m3u8 file
 
 
 import sys
-import urllib.request
+import requests
 
+
+def outputBuffer(buffer, outputFile):
+    buffer = buffer + '\n'
+    outputFile.write(buffer)
+    buffer = ""
+    return buffer
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
         url = sys.argv[1]
-        fileToModify = "tempFile.txt"
-        urllib.request.Request(url, fileToModify)
+        fileToModify = requests.get(url).text
         urlSliceEnd = url.find("index.m3u8")
-        url = url[0:(urlSliceEnd -1)]
+        modifiedURL = url[0:(urlSliceEnd -1)]
         outputFileLocation = "./Output.m3u8"
 
-        with(fileToModify, 'r') as inputFile:
-            buffer = ""
-            for line in inputFile:
-                if line[0] == '#':
-                    buffer = buffer + line
-                else:
-                    buffer = buffer + url + '/' + line
-
         with open(outputFileLocation, "w") as outputFile:
-            outputFile.write(buffer)
+            buffer = ""
+            for character in fileToModify:
+                if character != '\n':
+                    buffer = buffer + character
+                else:
+                    if buffer[0] != '#': #This means that we are looking at a link and we need to add the url
+                        buffer = modifiedURL + '/' + buffer
+                        buffer = outputBuffer(buffer, outputFile)
+
+                    else: #This means the buffer has a comment and we can just add it
+                        buffer = outputBuffer(buffer, outputFile)
              
         
     else:
@@ -40,4 +47,3 @@ if __name__ == "__main__":
 
 
 
-    

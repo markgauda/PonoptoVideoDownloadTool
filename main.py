@@ -13,17 +13,21 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         url = sys.argv[1]
         fileToModify = "tempFile.txt"
-        urllib.request(url, fileToModify)
+        urllib.request.Request(url, fileToModify)
         urlSliceEnd = url.find("index.m3u8")
         url = url[0:(urlSliceEnd -1)]
+        outputFileLocation = "./Output.m3u8"
 
-        with(fileToModify, r) as inputFile:
+        with(fileToModify, 'r') as inputFile:
             buffer = ""
             for line in inputFile:
                 if line[0] == '#':
                     buffer = buffer + line
                 else:
                     buffer = buffer + url + '/' + line
+
+        with open(outputFileLocation, "w") as outputFile:
+            outputFile.write(buffer)
              
         
     else:
